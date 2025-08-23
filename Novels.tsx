@@ -1,10 +1,12 @@
-// src/pages/Novels.tsx (النسخة النهائية مع الكتاب التفاعلي)
-
 import React, { useState, useMemo } from 'react';
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search, BookOpen, Frown } from 'lucide-react';
-import InteractiveBook from '@/components/ui/InteractiveBook'; // 1. استيراد مكون الكتاب
+import InteractiveBook from '@/components/ui/InteractiveBook';
+
+// استيراد الصور مباشرة
+import gharnataImage from '@/assets/gharnata.jpg'; // تأكد من وجود هذا المسار في مشروعك
+import stanImage from '@/assets/Stan.jpg';     // تأكد من وجود هذا المسار في مشروعك
 
 // بيانات الروايات مع محتوى الصفحات
 const novelsData = [
@@ -13,7 +15,7 @@ const novelsData = [
     title: "ثلاثية غرناطة",
     author: "رضوى عاشور",
     description: "رواية تاريخية تحكي عن سقوط الأندلس.",
-    imageUrl: "/images/gharnata.jpg",
+    imageUrl: gharnataImage, // استخدام المتغير المستورد
     pages: [
       "كان يوماً من أيام الصيف الحارة في غرناطة. الشمس ترسل أشعتها الذهبية على قصور الحمراء، والناس يتحركون ببطء في أزقة المدينة الضيقة...",
       "في ذلك اليوم، وُلدت مريم. كانت ولادتها حدثاً سعيداً في عائلة أبي جعفر، الخطاط الماهر الذي كانت أنامله تنسج آيات القرآن كأنها جواهر...",
@@ -26,7 +28,7 @@ const novelsData = [
     title: "ابليس",
     author: "كرم محمود",
     description: "ابليس 19",
-    imageUrl: "/images/Stan.jpg",
+    imageUrl: stanImage, // استخدام المتغير المستورد
     pages: [
       "اسمي عيسى. أو هوزيه، كما كانت تناديني أمي. ولدت في الفلبين، لكن دمي يحمل نصفاً كويتياً. هذه هي حكايتي، حكاية البحث عن جذر...",
       "أمي، جوزافين، عملت خادمة في الكويت. هناك التقت بأبي، راشد. كانت قصة حب ممنوعة، انتهت برحيلي مع أمي إلى بلدها وأنا لا أزال طفلاً...",
@@ -46,7 +48,7 @@ const NovelCard = ({ novel, onReadClick }: { novel: typeof novelsData[0]; onRead
         <h3 className="text-xl font-bold text-foreground mb-2">{novel.title}</h3>
         <p className="text-sm font-medium text-secondary mb-3">للكاتب: {novel.author}</p>
         <p className="text-muted-foreground text-sm h-20 overflow-hidden flex-grow">{novel.description}</p>
-        <Button className="w-full mt-4 btn-saudi" onClick={onReadClick}> {/* 2. ربط الزر بالدالة */}
+        <Button className="w-full mt-4 btn-saudi" onClick={onReadClick}>
           <BookOpen className="w-4 h-4 ml-2" />
           اقرأ الآن
         </Button>
@@ -58,7 +60,6 @@ const NovelCard = ({ novel, onReadClick }: { novel: typeof novelsData[0]; onRead
 // المكون الرئيسي لصفحة الروايات
 const NovelsPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
-  // 3. حالات جديدة للتحكم في الكتاب المفتوح
   const [isBookOpen, setIsBookOpen] = useState(false);
   const [selectedBook, setSelectedBook] = useState(null);
 
@@ -79,7 +80,8 @@ const NovelsPage = () => {
     <>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-10 min-h-screen">
         <header className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-saudi bg-clip-text text-transparent pb-2">
+          {/* تم تعديل حجم النص هنا */}
+          <h1 className="text-3xl md:text-4xl font-bold bg-gradient-saudi bg-clip-text text-transparent pb-2">
             مكتبة الروايات
           </h1>
           <p className="text-muted-foreground mt-3 max-w-2xl mx-auto">
@@ -110,7 +112,6 @@ const NovelsPage = () => {
         </main>
       </div>
 
-      {/* 4. إضافة مكون الكتاب التفاعلي إلى الصفحة */}
       <InteractiveBook 
         isOpen={isBookOpen}
         onClose={() => setIsBookOpen(false)}
@@ -121,3 +122,5 @@ const NovelsPage = () => {
 };
 
 export default NovelsPage;
+
+
