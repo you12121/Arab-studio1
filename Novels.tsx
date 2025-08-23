@@ -122,5 +122,3 @@ const NovelsPage = () => {
 };
 
 export default NovelsPage;
-
-
